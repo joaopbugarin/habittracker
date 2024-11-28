@@ -9,15 +9,15 @@ export interface User {
 
 // Habit type
 export interface Habit {
-    id?: string;
+    id: string;
     userId: string;
     name: string;
     frequency: 'daily' | 'weekly';
     targetCount: number;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: any; // Firebase Timestamp
+    updatedAt: any; // Firebase Timestamp
     isActive: boolean;
-}
+  }
 
 // Habit Log type
 export interface HabitLog {

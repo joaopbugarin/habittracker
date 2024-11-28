@@ -1,44 +1,43 @@
 import { db } from './firebase';
 import { collection, addDoc, getDocs, query, where, serverTimestamp } from 'firebase/firestore';
+import { Habit } from '../types/habit';
 
-export const createHabit = async (userId: string, habitData: any) => {
+export const createHabit = async (userId: string, habitData: Partial<Omit<Habit, 'id'>>) => {
   try {
-    console.log('Creating habit with data:', { userId, habitData });
-    const docRef = await addDoc(collection(db, 'habits'), {
-      ...habitData,
-      userId,
+    const habitToAdd = {
+      name: habitData.name,
+      frequency: habitData.frequency,
+      targetCount: Number(habitData.targetCount),
+      userId: userId,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       isActive: true
-    });
-    console.log('Habit created with ID:', docRef.id);
+    };
+
+    const docRef = await addDoc(collection(db, 'habits'), habitToAdd);
     return docRef.id;
   } catch (error) {
     console.error('Error creating habit:', error);
     throw error;
   }
-};
+  };
 
-export const getUserHabits = async (userId: string) => {
+  export const getUserHabits = async (userId: string): Promise<Habit[]> => {
   try {
-    console.log('Getting habits for user:', userId);
     const habitsQuery = query(
       collection(db, 'habits'),
       where('userId', '==', userId)
     );
     const querySnapshot = await getDocs(habitsQuery);
-    const habits = querySnapshot.docs.map(doc => ({
+    return querySnapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    }));
-    console.log('Retrieved habits:', habits);
-    return habits;
+    })) as Habit[];
   } catch (error) {
     console.error('Error getting habits:', error);
     throw error;
   }
-};
-
+  };
 // Habit Logs
 export const logHabitCompletion = async (habitId: string, notes?: string) => {
     try {

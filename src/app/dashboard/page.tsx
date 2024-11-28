@@ -4,35 +4,31 @@ import { useState, useEffect } from 'react'
 import { auth } from '@/lib/firebase'
 import { useRouter } from 'next/navigation'
 import { createHabit, getUserHabits } from '@/lib/db'
-import { Habit } from '@/types/habit' // Make sure to import the Habit type
+import { Habit } from '@/types/habit'
 
 export default function Dashboard() {
-  const router = useRouter()
-  // Add type here
-  const [habits, setHabits] = useState<Habit[]>([])
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [newHabit, setNewHabit] = useState({
-    name: '',
-    frequency: 'daily' as const, // specify literal type
-    targetCount: 1
-  })
-  const [loading, setLoading] = useState(true)
+const router = useRouter()
+const [habits, setHabits] = useState<Habit[]>([])
+const [showAddModal, setShowAddModal] = useState(false)
+const [newHabit, setNewHabit] = useState({
+  name: '',
+  frequency: 'daily' as const,
+  targetCount: 1
+})
 
-  useEffect(() => {
-    const loadHabits = async () => {
-      if (!auth.currentUser) return
-      try {
-        const userHabits = await getUserHabits(auth.currentUser.uid)
-        setHabits(userHabits)
-      } catch (error) {
-        console.error('Error loading habits:', error)
-      } finally {
-        setLoading(false)
-      }
+useEffect(() => {
+  const loadHabits = async () => {
+    if (!auth.currentUser) return;
+    try {
+      const userHabits = await getUserHabits(auth.currentUser.uid);
+      setHabits(userHabits);
+    } catch (error) {
+      console.error('Error loading habits:', error);
     }
+  };
 
-    loadHabits()
-  }, [])
+  loadHabits();
+}, []);
 
   const handleAddHabit = async (e: React.FormEvent) => {
     e.preventDefault()
