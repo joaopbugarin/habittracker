@@ -4,18 +4,26 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { handleSignOut } from '@/lib/authHelpers'
 import { loadUserHabits, createNewHabit } from '@/lib/habitsHelpers'
-import { Habit } from '@/types/habit'
+import { Habit, Reminder } from '@/types/habit'
 import { theme } from '@/styles/theme'
+
+type Frequency = 'daily' | 'weekly';
+
+interface NewHabit {
+name: string;
+frequency: Frequency;
+targetCount: number;
+}
 
 export default function Dashboard() {
 const router = useRouter()
 const [habits, setHabits] = useState<Habit[]>([])
 const [showAddModal, setShowAddModal] = useState(false)
-const [newHabit, setNewHabit] = useState({
+const [newHabit, setNewHabit] = useState<NewHabit>({
   name: '',
-  frequency: 'daily' as const,
+  frequency: 'daily',
   targetCount: 1
-})
+  })
 
 useEffect(() => {
   const fetchHabits = async () => {
@@ -131,12 +139,15 @@ return (
                   Frequency
                 </label>
                 <select
-                  value={newHabit.frequency}
-                  onChange={(e) => setNewHabit({...newHabit, frequency: e.target.value})}
-                  className={theme.components.input}
+                value={newHabit.frequency}
+                onChange={(e) => setNewHabit({
+                  ...newHabit,
+                  frequency: e.target.value as Frequency
+                })}
+                className={theme.components.input}
                 >
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
                 </select>
               </div>
               <div>

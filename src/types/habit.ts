@@ -17,7 +17,7 @@ export interface Habit {
     createdAt: any; // Firebase Timestamp
     updatedAt: any; // Firebase Timestamp
     isActive: boolean;
-  }
+}
 
 // Habit Log type
 export interface HabitLog {
@@ -35,8 +35,8 @@ export interface Reminder {
     reminderTime: string;
     reminderDays: string[];
     isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: any; // Firebase Timestamp
+    updatedAt: any; // Firebase Timestamp
 }
 
 // Streak type
