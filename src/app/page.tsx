@@ -30,13 +30,13 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-700 via-purple-800 to-gray-900">
       <div className="bg-white w-full max-w-md mx-4 p-8 rounded-2xl shadow-2xl transform transition-all">
         <div className="text-center mb-8">
-        <div className="mb-2 flex justify-center"> {/* increased margin-bottom and added flex centering */}
-            <img
-              src="/images/rabbitlogo.png"
-              alt="Habit Tracker"
-              className="h-48 w-auto" // increased height from h-24 to h-40
-            />
-          </div>
+        <div className="mb-8 flex justify-center">
+        <img
+          src="/images/rabbitlogo.png"
+          alt="Habit Tracker"
+          className="h-48 w-auto hover:scale-105 transition-transform duration-300"
+        />
+        </div>
           <h1 className="text-4xl font-extrabold tracking-tight">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-900">
               rabbittracker
