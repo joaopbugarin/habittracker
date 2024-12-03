@@ -87,69 +87,41 @@ return (
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-medium`}>Active Habits</span>
-          <span className={`text-3xl font-bold ${theme.colors.text.primary} mt-2`}>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Active Habits</span>
+          <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>
             {habits.length}
           </span>
         </div>
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-medium`}>Completed Today</span>
-          <span className={`text-3xl font-bold ${theme.colors.text.primary} mt-2`}>0</span>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Completed Today</span>
+          <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>0</span>
         </div>
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-medium`}>Current Streak</span>
-          <span className={`text-3xl font-bold ${theme.colors.text.primary} mt-2`}>0</span>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Current Streak</span>
+          <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>0</span>
         </div>
       </div>
   
       {/* Habits Section */}
-      <div className={`${theme.components.card}`}>
-        <div className="flex justify-between items-center mb-8">
-          <h2 className={`text-xl font-semibold ${theme.colors.text.primary}`}>
-            Habits
-          </h2>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className={theme.components.button.primary}
-          >
-            add new habit
-          </button>
-        </div>
-  
-        {habits.length === 0 ? (
-          <div className="text-center py-8">
-            <p className={`${theme.colors.text.secondary} mb-4`}>
-              hutch is empty, hop-portunities missed...*shame*
-            </p>
-            <button
-              onClick={() => setShowAddModal(true)}
-              className={`${theme.colors.text.primary} font-medium hover:underline`}
-            >
-              Add your first habit
-            </button>
-          </div>
-        ) : (
-          <ul className="divide-y divide-gray-200">
-            {habits.map((habit: any) => (
-              <li key={habit.id} className="py-6 flex justify-between items-center">
-                <div>
-                  <h3 className={`font-medium ${theme.colors.text.primary} text-lg`}>
-                    {habit.name}
-                  </h3>
-                  <p className={`${theme.colors.text.secondary} mt-1`}>
-                    {habit.frequency}
-                  </p>
-                </div>
-                <button
-                  className={theme.components.button.secondary}
-                >
-                  Complete
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+    <div className={`${theme.components.card}`}>
+    <div className="flex justify-between items-center mb-8">
+      <div className="flex items-center space-x-3">
+        <h2 className={`text-2xl font-bold ${theme.colors.text.secondary}`}>
+          Habits
+        </h2>
+        <span className={`text-sm ${theme.colors.text.muted}`}>
+          ({habits.length})
+        </span>
       </div>
+      <button
+        onClick={() => setShowAddModal(true)}
+        className={`${theme.components.button.primary} flex items-center space-x-2`}
+      >
+        <span>+</span>
+        <span>add new habit</span>
+      </button>
+    </div>
+    </div>
     </main>
   
     {/* Modal */}

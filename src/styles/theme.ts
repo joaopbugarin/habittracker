@@ -12,6 +12,7 @@ interface Theme {
     text: {
       primary: string;
       secondary: string;
+      stats: string;
       muted: string;
     };
     border: {
@@ -49,8 +50,9 @@ export const theme: Theme = {
       card: 'bg-white',
     },
     text: {
-      primary: 'text-orange-600',      // Changed from emerald
-      secondary: 'text-emerald-500',   // Changed to emerald
+      primary: 'text-orange-600',
+      secondary: 'text-emerald-500',
+      stats: 'text-gray-600',
       muted: 'text-gray-400',
     },
     border: {
@@ -59,11 +61,11 @@ export const theme: Theme = {
   },
   components: {
     button: {
-      primary: 'px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors',
-      secondary: 'px-4 py-2 text-sm text-emerald-500 hover:bg-emerald-50 rounded-md', // Fixed text color
+      primary: 'px-4 py-2 bg-orange-500 text-orange-300 rounded-md hover:bg-orange-600 transition-colors',
+      secondary: 'px-4 py-2 text-sm text-emerald-500 hover:bg-emerald-50 rounded-md', 
     },
     input: 'mt-1 block w-full rounded-md border border-gray-200 p-2 focus:border-orange-500 focus:ring-1 focus:ring-orange-500',
-    card: 'bg-white rounded-lg shadow-sm p-8 border border-gray-200',
+    card: 'bg-white rounded-xl border border-gray-200 shadow-lg p-8 hover:shadow-xl transition-all duration-300',
     modal: 'fixed inset-0 bg-black/50 flex items-center justify-center p-4 backdrop-blur-sm'
   },
   gradients: {
@@ -73,5 +75,5 @@ export const theme: Theme = {
   effects: {
     shadow: 'shadow-lg',
     transition: 'transition-all duration-200',
-  }
+  },
   }
