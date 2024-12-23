@@ -6,6 +6,7 @@ import { handleSignOut } from '@/lib/authHelpers'
 import { loadUserHabits, createNewHabit } from '@/lib/habitsHelpers'
 import { Habit, Reminder } from '@/types/habit'
 import { theme } from '@/styles/theme'
+import { AddHabitModal } from '@/components/AddHabitModal'
 
 type Frequency = 'daily' | 'weekly';
 
@@ -57,47 +58,47 @@ const handleAddHabit = async (e: React.FormEvent) => {
 }
 
 return (
-  <div className={`min-h-screen ${theme.colors.background.main} p-6`}>
+  <div className={`min-h-screen ${theme.colors.background.main}`}>
     {/* Header */}
-    <nav className={`${theme.colors.background.card} shadow-md mb-8 rounded-lg`}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-4">
-            <img
-              src="/images/rabbitlogo.png"
-              alt="Logo"
-              className="h-10 w-auto"
-            />
-            <h1 className={`text-2xl font-bold ${theme.colors.text.primary}`}>
-              my warren
-            </h1>
-          </div>
-          <button
-            onClick={onSignOut}
-            className={theme.components.button.secondary}
-          >
-            sign out
-          </button>
+    <nav className={`${theme.colors.background.card} shadow-md w-full`}>
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-5">
+          <img
+            src="/images/rabbitlogo.png"
+            alt="Logo"
+            className="h-24 w-auto transform transition-all duration-300 hover:scale-125 hover:rotate-3 cursor-pointer"
+          />
+          <h1 className={`text-2xl font-bold ${theme.colors.text.primary}`}>
+            my warren
+          </h1>
         </div>
+        <button
+          onClick={onSignOut}
+          className={theme.components.button.secondary}
+        >
+          sign out
+        </button>
       </div>
+    </div>
     </nav>
   
     {/* Main Content */}
-    <main className="max-w-5xl mx-auto">
+    <main className="max-w-5xl mx-auto px-6 pt-8">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4">
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Active Habits</span>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>active habits</span>
           <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>
             {habits.length}
           </span>
         </div>
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Completed Today</span>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>completed today</span>
           <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>0</span>
         </div>
         <div className={`${theme.components.card} flex flex-col`}>
-          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>Current Streak</span>
+          <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>current streak</span>
           <span className={`text-3xl font-bold ${theme.colors.text.stats} mt-2`}>0</span>
         </div>
       </div>
@@ -107,7 +108,7 @@ return (
     <div className="flex justify-between items-center mb-8">
       <div className="flex items-center space-x-3">
         <h2 className={`text-2xl font-bold ${theme.colors.text.secondary}`}>
-          Habits
+          habits
         </h2>
         <span className={`text-sm ${theme.colors.text.muted}`}>
           ({habits.length})
@@ -125,14 +126,12 @@ return (
     </main>
   
     {/* Modal */}
-    {showAddModal && (
-      <div className={theme.components.modal}>
-        <div className={`${theme.components.card} w-full max-w-md`}>
-          <h2 className={`text-xl font-bold mb-6 ${theme.colors.text.primary}`}>save</h2>
-          {/* ... rest of modal content with theme colors ... */}
-        </div>
-      </div>
-    )}
+    <AddHabitModal 
+      show={showAddModal}
+      onClose={() => setShowAddModal(false)}
+      onSubmit={handleAddHabit}
+      habit={newHabit}
+      setHabit={setNewHabit}
+    />  
   </div>
-  )
-}
+)}
