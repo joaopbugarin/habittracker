@@ -87,7 +87,7 @@ return (
         </h2>
         <button 
           onClick={onClose}
-          className={theme.components.button.icon}
+          className={theme.components.modal.closeButton}
         >
           ✕
         </button>
