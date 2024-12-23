@@ -12,11 +12,27 @@ export interface Habit {
     id: string;
     userId: string;
     name: string;
-    frequency: 'daily' | 'weekly';
+    frequency: Frequency;
     targetCount: number;
+    completions: { [date: string]: number };
+    lastCompleted: {
+      date: string;
+      count: number;
+      periodStart: string;
+      periodEnd: string;
+    } | null;
     createdAt: any; // Firebase Timestamp
     updatedAt: any; // Firebase Timestamp
     isActive: boolean;
+}
+
+// New Habit type (for creation)
+export type Frequency = 'daily' | 'weekly';
+
+export interface NewHabit {
+name: string;
+frequency: Frequency;
+targetCount: number; // How many times per frequency
 }
 
 // Habit Log type
@@ -39,7 +55,7 @@ export interface Reminder {
     updatedAt: any; // Firebase Timestamp
 }
 
-// Streak type
+// Streak type (can be used for historical tracking if needed)
 export interface Streak {
     id?: string;
     habitId: string;
