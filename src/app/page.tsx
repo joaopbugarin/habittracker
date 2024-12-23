@@ -75,7 +75,16 @@ return (
         continue with google
       </button>
 
-      <div className="relative my-6">
+      <div className="mt-8 text-center">
+        <p className="text-gray-500">
+          email/password authentication coming soon!
+        </p>
+        <p className="text-sm text-gray-400 mt-2">
+          for now, please use Google
+        </p>
+      </div>
+
+      {/* <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-300"></div>
         </div>
@@ -119,7 +128,7 @@ return (
             ? "don't have an account? sign up"
             : "already have an account? sign in"}
         </button>
-      </div>
+      </div> */}
     </div>
   </div>
 )
