@@ -16,6 +16,7 @@ import { AddHabitModal } from '@/components/AddHabitModal'
 import { theme } from '@/styles/theme'
 import { Habit, NewHabit } from '@/types/habit'
 import { auth, db } from '@/lib/firebase'
+import { GrassAnimation } from '@/components/GrassAnimation'
 
 export default function Dashboard() {
 const router = useRouter()
@@ -211,5 +212,6 @@ return (
   }}
 />
 )}
+  <GrassAnimation />
   </div>
 )}

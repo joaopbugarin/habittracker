@@ -4,7 +4,7 @@ import { Providers } from '@/components/Providers'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: '..rabbit tracker',
+  title: 'rabbit tracker',
   description: 'Track your daily habits',
 }
 
