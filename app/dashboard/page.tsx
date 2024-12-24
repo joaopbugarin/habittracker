@@ -146,9 +146,9 @@ export default function Dashboard() {
   
   // Main render
   return (
-    <div className={`min-h-screen ${theme.colors.background.main} relative overflow-hidden`}>
+    <div className={`min-h-screen ${theme.colors.background.main}`}>
     {/* Header */}
-    <nav className={`${theme.colors.background.card} shadow-md w-full relative z-20`}>
+    <nav className={`${theme.colors.background.card} shadow-md w-full z-30`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-5">
@@ -173,9 +173,9 @@ export default function Dashboard() {
   
     {/* Main Content */}
     <div className="relative z-20">
-      <main className="max-w-5xl mx-auto px-6 pt-2 pb-32">
+      <main className="max-w-5xl mx-auto px-6 pt-2 mb-10">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
           <div className={`${theme.components.card} flex flex-col`}>
             <span className={`text-sm ${theme.colors.text.secondary} font-semibold`}>
               active habits
@@ -206,7 +206,7 @@ export default function Dashboard() {
     
         {/* Habits Section */}
         <div className={`${theme.components.card}`}>
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-2">
             <div className="flex items-center space-x-3">
               <h2 className={`text-2xl font-bold border-b-2 border-emerald-500 ${theme.colors.text.secondary}`}>
                 habits
@@ -231,12 +231,9 @@ export default function Dashboard() {
           />
         </div>
       </main>
-    </div>
-  
-    {/* Position grass */}
-    <div className="absolute bottom-0 left-0 right-0 z-10 h-24">
-      <GrassAnimation />
-    </div>
+    </div>    
+    <GrassAnimation />
+    
   
     {/* Modals */}
     {showAddModal && (
