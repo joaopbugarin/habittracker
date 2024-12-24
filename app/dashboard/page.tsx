@@ -20,58 +20,12 @@ import { GrassAnimation } from '@/components/GrassAnimation'
 import { DeleteConfirmationModal } from '@/components/DeleteConfirmationModal'
 
 export default function Dashboard() {
-const router = useRouter()
-const { user, loading } = useAuth()  // Get user from auth context
-const [habits, setHabits] = useState<Habit[]>([])
-const [showAddModal, setShowAddModal] = useState(false)
-const [newHabit, setNewHabit] = useState<NewHabit>({
-  name: '',
-  frequency: 'daily',
-  targetCount: 1
-  })
-
-  useEffect(() => {
-    if (!loading && !user) {
-      console.log('No authenticated user, redirecting to home');
-      router.push('/');
-    }
-  }, [user, loading, router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-      </div>
-    );
-  }
-
-  const handleCompleteHabit = async (habitId: string) => {
-    try {
-      const { success, error } = await toggleHabitCompletion(habitId)
-      
-      if (success) {
-        // Refresh habits list to get updated completion status
-        const userHabits = await loadUserHabits()
-        setHabits(userHabits)
-      } else {
-        console.error('Failed to complete habit:', error)
-        // Optionally add error notification here
-      }
-    } catch (error) {
-      console.error('Error completing habit:', error)
-      // Optionally add error notification here
-    }
-  }
-
-  const onSignOut = async () => {
-    try {
-      await auth.signOut();
-      router.push('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-    };
-
+  const router = useRouter()
+  const { user, loading } = useAuth()
+  
+  // Group all state declarations together at the top
+  const [habits, setHabits] = useState<Habit[]>([])
+  const [showAddModal, setShowAddModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState<{
     isOpen: boolean;
     habitId: string;
@@ -80,16 +34,78 @@ const [newHabit, setNewHabit] = useState<NewHabit>({
     isOpen: false,
     habitId: '',
     habitName: ''
-  });
-
-  const handleDeleteHabit = async (habitId: string, habitName: string) => {
+  })
+  const [newHabit, setNewHabit] = useState<NewHabit>({
+    name: '',
+    frequency: 'daily',
+    targetCount: 1
+  })
+  
+  // Authentication effect
+  useEffect(() => {
+    if (!loading && !user) {
+      console.log('No authenticated user, redirecting to home');
+      router.push('/');
+    }
+  }, [user, loading, router]);
+  
+  // Data loading effect
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        if (!user) {
+          console.log('No user, skipping data load');
+          return;
+        }
+  
+        console.log('Loading data for user:', user.uid);
+        const testRef = collection(db, 'habits');
+        const testQuery = query(
+          testRef,
+          where('userId', '==', user.uid),
+          limit(1)
+        );
+        const snapshot = await getDocs(testQuery);
+        console.log('Firestore connection successful, got', snapshot.size, 'documents');
+        
+        // Load habits
+        const userHabits = await loadUserHabits();
+        console.log('Loaded habits:', userHabits);
+        setHabits(userHabits);
+      } catch (error) {
+        console.error('Error loading initial data:', error);
+      }
+    };
+  
+    if (!loading) {
+      initializeData();
+    }
+  }, [user, loading]);
+  
+  // Handler functions
+  const handleCompleteHabit = async (habitId: string) => {
+    try {
+      const { success, error } = await toggleHabitCompletion(habitId)
+      
+      if (success) {
+        const userHabits = await loadUserHabits()
+        setHabits(userHabits)
+      } else {
+        console.error('Failed to complete habit:', error)
+      }
+    } catch (error) {
+      console.error('Error completing habit:', error)
+    }
+  }
+  
+  const handleDeleteHabit = (habitId: string, habitName: string) => {
     setDeleteModal({
       isOpen: true,
       habitId,
       habitName
     });
   };
-
+  
   const confirmDelete = async () => {
     try {
       const { success } = await deleteHabit(deleteModal.habitId);
@@ -103,10 +119,34 @@ const [newHabit, setNewHabit] = useState<NewHabit>({
     } finally {
       setDeleteModal({ isOpen: false, habitId: '', habitName: '' });
     }
-};
-
-return (
-  <div className={`min-h-screen ${theme.colors.background.main} relative overflow-hidden`}>
+  };
+  
+  const onSignOut = async () => {
+    try {
+      await auth.signOut();
+      router.push('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+  
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+      </div>
+    );
+  }
+  
+  // Not authenticated state
+  if (!user) {
+    return null;
+  }
+  
+  // Main render
+  return (
+    <div className={`min-h-screen ${theme.colors.background.main} relative overflow-hidden`}>
     {/* Header */}
     <nav className={`${theme.colors.background.card} shadow-md w-full relative z-20`}>
       <div className="max-w-7xl mx-auto px-6">
