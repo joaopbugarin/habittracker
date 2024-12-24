@@ -5,7 +5,7 @@ import { checkHabitCompletion } from '@/lib/habitsHelpers'
 interface HabitsListProps {
     habits: Habit[]
     onComplete: (habitId: string) => void
-    onDelete: (habitId: string) => void
+    onDelete: (habitId: string, name: string) => void
 }
 
 export function HabitsList({ habits, onComplete, onDelete }: HabitsListProps) {
@@ -80,7 +80,7 @@ return (
             </button>
 
             <button
-              onClick={() => onDelete(habit.id)}
+              onClick={() => onDelete(habit.id, habit.name)}
               className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors duration-200"
               aria-label="delete habit"
             >
