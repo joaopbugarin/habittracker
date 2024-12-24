@@ -129,23 +129,41 @@ useEffect(() => {
 
   const setCanvasSize = () => {
     if (!canvas) return
-    canvas.width = window.innerWidth
-    canvas.height = 96
-
-    // Clear existing arrays
+    
+    // Get device pixel ratio
+    const dpr = window.devicePixelRatio || 1
+    
+    // Get display size
+    const displayWidth = window.innerWidth
+    const displayHeight = 96
+    
+    // Set canvas size accounting for DPR
+    canvas.width = displayWidth * dpr
+    canvas.height = displayHeight * dpr
+    
+    // Scale canvas back down with CSS
+    canvas.style.width = `${displayWidth}px`
+    canvas.style.height = `${displayHeight}px`
+    
+    // Scale the context to account for DPR
+    if (ctx) {
+      ctx.scale(dpr, dpr)
+    }
+    
+    // Recalculate elements
     bladesRef.current = []
     sparklesRef.current = []
     
-    const numBlades = Math.floor(canvas.width / 2)
+    const numBlades = Math.floor(displayWidth / 2) // Use display width, not canvas width
     for (let i = 0; i < numBlades; i++) {
       bladesRef.current.push(new GrassBlade(i * 2, canvas))
     }
-
-    const numSparkles = Math.floor(canvas.width / 15)
+    
+    const numSparkles = Math.floor(displayWidth / 15)
     for (let i = 0; i < numSparkles; i++) {
-      sparklesRef.current.push(new Sparkle(Math.random() * canvas.width, canvas))
+      sparklesRef.current.push(new Sparkle(Math.random() * displayWidth, canvas))
     }
-  }
+    }
 
   setCanvasSize()
   window.addEventListener('resize', setCanvasSize)
@@ -183,9 +201,12 @@ useEffect(() => {
 return (
   <div className="sticky -bottom-24 top-[calc(100vh-6rem)] z-10">
     <canvas
-      ref={canvasRef}
-      className="w-full h-24 pointer-events-none"
+    ref={canvasRef}
+    className="w-full h-24 pointer-events-none"
+    style={{ 
+      imageRendering: '-webkit-optimize-contrast', // Use only one of these
+    }}
     />
   </div>
-)
+  )
 }
