@@ -50,7 +50,7 @@ export const theme: Theme = {
       text: 'text-orange-500',
     },
     background: {
-      main: 'bg-gray-100',
+      main: 'bg-cyan-100',
       card: 'bg-white',
     },
     text: {
