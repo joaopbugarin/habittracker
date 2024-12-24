@@ -5,11 +5,11 @@ import { theme } from '@/styles/theme'
 import { NewHabit } from '@/types/habit'
 
 interface AddHabitModalProps {
-show: boolean
-onClose: () => void
-onSubmit: (habit: NewHabit) => Promise<{ success: boolean; error?: string; id?: string }>
+  show: boolean
+  onClose: () => void
+  onSubmit: (habit: NewHabit) => Promise<{ success: boolean; error?: string; id?: string }>
 }
-
+  
 export function AddHabitModal({ show, onClose, onSubmit }: AddHabitModalProps) {
 const [habit, setHabit] = useState<NewHabit>({
   name: '',
@@ -80,79 +80,89 @@ if (!show) return null
 
 return (
   <div className={theme.components.modal.overlay} onClick={handleOverlayClick}>
-    <div className={theme.components.modal.container}>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className={`text-xl font-bold ${theme.colors.text.primary}`}>
-          new habit
-        </h2>
-        <button 
-          onClick={onClose}
-          className={theme.components.modal.closeButton}
-        >
-          ✕
-        </button>
+    <div className={`${theme.components.modal.container} max-w-md w-full`}>
+      {/* Cute Image Section - Using regular img tag */}
+      <div className="flex justify-center mb-6">
+        <img
+          src="/images/happy-rabbit.png"
+          alt="Happy Rabbit"
+          className="w-24 h-30 object-contain transform transition-all duration-300 hover:scale-110"
+        />
       </div>
 
+      {/* Title Section */}
+      <div className="text-center mb-6">
+        <h2 className={`text-2xl font-bold ${theme.colors.text.primary}`}>
+          new habit hop!
+        </h2>
+        <p className={`mt-2 text-sm ${theme.colors.text.muted}`}>
+          let's create a new healthy habit together!
+        </p>
+      </div>
+
+
+      {/* Status Message */}
       {status.type && (
-        <div className={`mb-4 p-3 rounded-lg ${
+        <div className={`mb-4 p-4 rounded-lg text-center transition-all duration-300 ${
           status.type === 'success' 
             ? 'bg-emerald-50 text-emerald-500 border border-emerald-200'
             : 'bg-red-50 text-red-500 border border-red-200'
         }`}>
-          {status.message}
+          <p className="font-medium">{status.message}</p>
         </div>
       )}
 
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
+        <div className="group">
           <label className={`block text-sm font-medium ${theme.colors.text.secondary} mb-2`}>
-            habit name *
+            what's your new habit? 🌱
           </label>
           <input
             type="text"
             value={habit.name}
             onChange={(e) => setHabit({...habit, name: e.target.value})}
-            className={theme.components.input}
-            placeholder="e.g., morning run, read books"
+            className={`${theme.components.input} transition-all duration-200 group-hover:shadow-md`}
+            placeholder="e.g., morning hop, carrot munching"
             required
             minLength={3}
             maxLength={50}
           />
         </div>
 
-        <div>
+        <div className="group">
           <label className={`block text-sm font-medium ${theme.colors.text.secondary} mb-2`}>
-            frequency *
+            how often? ⏰
           </label>
           <select
             value={habit.frequency}
             onChange={(e) => setHabit({...habit, frequency: e.target.value as 'daily' | 'weekly'})}
-            className={theme.components.input}
+            className={`${theme.components.input} transition-all duration-200 group-hover:shadow-md`}
             required
           >
-            <option value="daily">daily</option>
-            <option value="weekly">weekly</option>
+            <option value="daily">daily burrow check</option>
+            <option value="weekly">weekly warren visit</option>
           </select>
           <p className={`mt-1 text-sm ${theme.colors.text.muted}`}>
-            how often do you want to track this habit?
+            pick your perfect rhythm! 🎵
           </p>
         </div>
 
-        <div>
+        <div className="group">
           <label className={`block text-sm font-medium ${theme.colors.text.secondary} mb-2`}>
-            target count *
+            how many times? 🔢
           </label>
           <input
             type="number"
             value={habit.targetCount}
             onChange={(e) => setHabit({...habit, targetCount: parseInt(e.target.value)})}
-            className={theme.components.input}
+            className={`${theme.components.input} transition-all duration-200 group-hover:shadow-md`}
             min="1"
             max="99"
             required
           />
           <p className={`mt-1 text-sm ${theme.colors.text.muted}`}>
-            how many times per {habit.frequency === 'daily' ? 'day' : 'week'}?
+            target hops per {habit.frequency === 'daily' ? 'day' : 'week'}
           </p>
         </div>
 
@@ -160,27 +170,27 @@ return (
           <button
             type="button"
             onClick={onClose}
-            className={theme.components.button.secondary}
+            className={`${theme.components.button.secondary} transform transition-all duration-200 hover:scale-105`}
           >
-            cancel
+            hop away 🐾
           </button>
           <button
             type="submit"
-            className={theme.components.button.primary}
+            className={`${theme.components.button.primary} transform transition-all duration-200 hover:scale-105`}
             disabled={status.type === 'success' || isSubmitting}
           >
             {status.type === 'success' ? (
               <span className="flex items-center">
                 <CheckIcon className="w-5 h-5 mr-2" />
-                created!
+                hopping success! 🎉
               </span>
             ) : isSubmitting ? (
               <span className="flex items-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2" />
-                creating...
+                creating burrow...
               </span>
             ) : (
-              'create habit'
+              'create habit 🌟'
             )}
           </button>
         </div>
