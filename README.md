@@ -1,13 +1,10 @@
 # 🐰 Rabbit Tracker
-
 Hop into better habits, one carrot at a time! 🥕
 
 ## 🌟 About
-
 Rabbit Tracker is a delightful habit tracking application that helps you build and maintain healthy habits with a playful twist. Just like rabbits are creatures of habit, this app helps you establish your own daily and weekly routines!
 
 ## ✨ Features
-
 - 🐇 **Simple & Intuitive**: Easy habit tracking with a bunny-themed interface
 - 📅 **Flexible Tracking**: Daily or weekly habit monitoring
 - 🥕 **Progress Tracking**: Watch your habits grow like fresh carrots
@@ -15,7 +12,6 @@ Rabbit Tracker is a delightful habit tracking application that helps you build a
 - 📱 **Responsive Design**: Works seamlessly on both burrow and warren (mobile and desktop)
 
 ## 🛠 Tech Stack
-
 - 🎯 **Frontend**:
 - [Next.js 14](https://nextjs.org/) - The carrot of React frameworks
 - [TypeScript](https://www.typescriptlang.org/) - For catching bugs before they multiply like rabbits
@@ -31,7 +27,6 @@ Rabbit Tracker is a delightful habit tracking application that helps you build a
 - Responsive interactions
 
 ## 🚀 Getting Started
-
 1. Clone this warren (repository):
 git clone https://github.com/yourusername/rabbit-tracker.git
 
@@ -42,7 +37,7 @@ npm install
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-# ... other Firebase config
+etc etc etc
 
 4. Start your burrow (development server):
 npm run dev
@@ -56,7 +51,7 @@ npm run dev
 - 📱 Mobile app
 And more hoppy surprises!
 
-🤝 Contributing
+## 🤝 Contributing
 Contributions are what make the open-source community such a fantastic burrow to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 Fork the Project
